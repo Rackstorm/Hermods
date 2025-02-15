@@ -64,6 +64,9 @@ namespace Bussen
 			//Betyg C
 			//Beräkna den genomsnittliga åldern. Kanske kan man tänka sig att denna metod ska returnera något annat värde än heltal?
 			//För att koden ska fungera att köra så måste denna metod justeras, alternativt att man temporärt sätter metoden med void
+                if (antal_passagerare == 0) return 0; 
+    int totalAge = calc_total_age();
+    return (double)totalAge / antal_passagerare;
 		}
 		
 		public int max_age()
@@ -71,6 +74,17 @@ namespace Bussen
 			//Betyg C
 			//ta fram den passagerare med högst ålder. Detta ska ske med egen kod och är rätt klurigt.
 			//För att koden ska fungera att köra så måste denna metod justeras, alternativt att man temporärt sätter metoden med void
+            if (antal_passagerare == 0) return 0; // Om bussen är tom, returnera 0
+
+    int maxAge = passagerare[0];
+    for (int i = 1; i < antal_passagerare; i++)
+    {
+        if (passagerare[i] > maxAge)
+        {
+            maxAge = passagerare[i];
+        }
+    }
+    return maxAge;
 		}
 		
 		public void find_age()
