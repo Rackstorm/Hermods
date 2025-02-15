@@ -49,6 +49,12 @@ namespace Bussen
 		{
 			//Beräkna den totala åldern. 
 			//För att koden ska fungera att köra så måste denna metod justeras, alternativt att man temporärt sätter metoden med void
+            int totalAge = 0;
+    for (int i = 0; i < antal_passagerare; i++)
+    {
+        totalAge += passagerare[i];
+    }
+    return totalAge;
 		}
 		
 		//Metoder för betyget C
