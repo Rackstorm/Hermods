@@ -1,0 +1,15 @@
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\bin\Debug\net9.0\Bussen.exe
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\bin\Debug\net9.0\Bussen.deps.json
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\bin\Debug\net9.0\Bussen.runtimeconfig.json
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\bin\Debug\net9.0\Bussen.dll
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\bin\Debug\net9.0\Bussen.pdb
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.AssemblyInfoInputs.cache
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.AssemblyInfo.cs
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.csproj.CoreCompileInputs.cache
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.sourcelink.json
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.dll
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\refint\Bussen.dll
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.pdb
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\Bussen.genruntimeconfig.cache
+C:\Users\Pauli\OneDrive\Dokument\GitHub\Hermods\Bussen\obj\Debug\net9.0\ref\Bussen.dll
