@@ -19,8 +19,8 @@ namespace Bussen
 	class Buss
 	{
 
-		public int [] passagerare;
-		public int antal_passagerare;
+		public int[] passagerare = new int[10]; 
+		public int antal_passagerare = 0;
 
 		
 		public void Run()
