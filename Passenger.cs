@@ -1,19 +1,16 @@
-using System;
-
-namespace Bussen
+public class Passenger
 {
-    public class Passenger
+    public int Age { get; set; }
+    public string Gender { get; set; }
+
+    public Passenger(int age, string gender)
     {
-        public int Age { get; set; }
+        Age = age;
+        Gender = gender;
+    }
 
-        public Passenger(int age)
-        {
-            Age = age;
-        }
-
-        public void DisplayInfo()
-        {
-            Console.WriteLine($"Passagerare: Ålder {Age}");
-        }
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Ålder: {Age}, Kön: {Gender}");
     }
 }
