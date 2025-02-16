@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bussen
 {
@@ -17,10 +18,11 @@ namespace Bussen
                 Console.WriteLine("2. Skriv ut alla passagerare");
                 Console.WriteLine("3. Visa genomsnittsålder");
                 Console.WriteLine("4. Visa högsta ålder");
-                Console.WriteLine("5. Sök passagerare i åldersintervall");
-                Console.WriteLine("6. Sortera passagerare efter ålder");
-                Console.WriteLine("7. Ta bort passagerare");
-                Console.WriteLine("8. Avsluta");
+                Console.WriteLine("5. Visa total ålder");
+                Console.WriteLine("6. Sök passagerare i åldersintervall");
+                Console.WriteLine("7. Sortera passagerare efter ålder");
+                Console.WriteLine("8. Ta bort passagerare");
+                Console.WriteLine("9. Avsluta programmet");
                 Console.Write("Välj ett alternativ: ");
 
                 string input = Console.ReadLine();
@@ -52,6 +54,7 @@ namespace Bussen
                         break;
                     case "9":
                         isRunning = false;
+                        Console.WriteLine("\nProgrammet avslutas...");
                         break;
                     default:
                         Console.WriteLine("\nOgiltigt val, försök igen.");
@@ -62,11 +65,12 @@ namespace Bussen
 
         public void AddPassenger()
         {
-                if (passengers.Count >= 10) 
-    {
-        Console.WriteLine("\nBussen är full! Ingen fler passagerare kan läggas till.");
-        return;
-    }
+            if (passengers.Count >= 10)
+            {
+                Console.WriteLine("\nBussen är full! Ingen fler passagerare kan läggas till.");
+                return;
+            }
+
             Console.Write("\nAnge passagerarens ålder: ");
             if (int.TryParse(Console.ReadLine(), out int age))
             {
@@ -77,8 +81,6 @@ namespace Bussen
             {
                 Console.WriteLine("\nOgiltig ålder, försök igen.");
             }
-
-            
         }
 
         public void PrintPassengers()
@@ -108,23 +110,15 @@ namespace Bussen
             Console.WriteLine($"\nGenomsnittsålder: {average:F2}");
         }
 
-      public int ShowTotalAge()
-{
-    if (passengers.Count == 0)
-    {
-        return 0; 
-            }
+        public int TotalAge()
+        {
+            return passengers.Count == 0 ? 0 : passengers.Sum(p => p.Age);
+        }
 
-    int totalAge = 0;
-    foreach (var passenger in passengers)
-    {
-        totalAge += passenger.Age;
-    }
-
-    return totalAge;
-}
-
-
+        public void ShowTotalAge()
+        {
+            Console.WriteLine($"\nDen totala åldern av alla passagerare: {TotalAge()} år.");
+        }
 
         public void ShowMaxAge()
         {
@@ -171,14 +165,9 @@ namespace Bussen
             }
         }
 
-public void ShowTotalAge()
-{
-    Console.WriteLine($"\nDen totala åldern av alla passagerare: {ShowTotalAge()} år.");
-}
-
         public void SortPassengers()
         {
-            passengers = passengers.OrderBy(p => p.Age).ToList();
+            passengers.Sort((p1, p2) => p1.Age.CompareTo(p2.Age));
             Console.WriteLine("\nPassagerare sorterade efter ålder. Ange alternativ 2 för att visa passagerarlista.");
         }
 
@@ -187,11 +176,10 @@ public void ShowTotalAge()
             Console.Write("\nAnge åldern på passageraren du vill ta bort: ");
             if (int.TryParse(Console.ReadLine(), out int age))
             {
-                var passengerToRemove = passengers.FirstOrDefault(p => p.Age == age);
-                if (passengerToRemove != null)
+                int removedCount = passengers.RemoveAll(p => p.Age == age);
+                if (removedCount > 0)
                 {
-                    passengers.Remove(passengerToRemove);
-                    Console.WriteLine("\nPassagerare borttagen.");
+                    Console.WriteLine($"\n{removedCount} passagerare med ålder {age} har tagits bort.");
                 }
                 else
                 {
