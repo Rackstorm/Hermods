@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Bussen
 {
@@ -75,28 +74,24 @@ namespace Bussen
                 return;
             }
 
-            int age;
-            while (true)
+            Console.Write("\nAnge passagerarens ålder: ");
+            if (int.TryParse(Console.ReadLine(), out int age))
             {
-                Console.Write("\nAnge passagerarens ålder: ");
-                string input = Console.ReadLine();
-                if (int.TryParse(input, out age) && age > 0)
-                    break;
+                string gender;
+                do
+                {
+                    Console.Write("\nAnge kön (M/K): ");
+                    gender = Console.ReadLine()?.Trim().ToUpper() ?? "";
+
+                } while (gender != "M" && gender != "K");
+
+                passengers.Add(new Passenger(age, gender));
+                Console.WriteLine("\nPassagerare tillagd!");
+            }
+            else
+            {
                 Console.WriteLine("\nOgiltig ålder, försök igen.");
             }
-
-            string gender;
-            while (true)
-            {
-                Console.Write("\nAnge kön (M/K): ");
-                gender = Console.ReadLine()?.Trim().ToUpper();
-                if (gender == "M" || gender == "K")
-                    break;
-                Console.WriteLine("\nOgiltigt kön, ange 'M' för man eller 'K' för kvinna.");
-            }
-
-            passengers.Add(new Passenger(age, gender));
-            Console.WriteLine("\nPassagerare tillagd!");
         }
 
         public void PrintPassengers()
@@ -110,28 +105,7 @@ namespace Bussen
             Console.WriteLine("\n--- Passagerarlista ---");
             foreach (var passenger in passengers)
             {
-                passenger.DisplayInfo();
-            }
-        }
-
-        public void PrintPassengersByGender()
-        {
-            Console.Write("\nVisa passagerare med kön (M/K): ");
-            string gender = Console.ReadLine()?.Trim().ToUpper();
-
-            var filteredPassengers = passengers.Where(p => p.Gender == gender).ToList();
-
-            if (filteredPassengers.Count == 0)
-            {
-                Console.WriteLine("\nInga passagerare av detta kön hittades.");
-            }
-            else
-            {
-                Console.WriteLine($"\n--- Passagerare med kön {gender} ---");
-                foreach (var p in filteredPassengers)
-                {
-                    p.DisplayInfo();
-                }
+                Console.WriteLine($"Ålder: {passenger.Age}, Kön: {passenger.Gender}");
             }
         }
 
@@ -143,18 +117,25 @@ namespace Bussen
                 return;
             }
 
-            double average = (double)passengers.Sum(p => p.Age) / passengers.Count;
-            Console.WriteLine($"\nGenomsnittsålder: {average:F2}");
-        }
+            int totalAge = 0;
+            foreach (var passenger in passengers)
+            {
+                totalAge += passenger.Age;
+            }
 
-        public int GetTotalAge()
-        {
-            return passengers.Count == 0 ? 0 : passengers.Sum(p => p.Age);
+            double average = (double)totalAge / passengers.Count;
+            Console.WriteLine($"\nGenomsnittsålder: {average:F2}");
         }
 
         public void ShowTotalAge()
         {
-            Console.WriteLine($"\nDen totala åldern av alla passagerare: {GetTotalAge()} år.");
+            int totalAge = 0;
+            foreach (var passenger in passengers)
+            {
+                totalAge += passenger.Age;
+            }
+
+            Console.WriteLine($"\nDen totala åldern av alla passagerare: {totalAge} år.");
         }
 
         public void ShowMaxAge()
@@ -165,7 +146,15 @@ namespace Bussen
                 return;
             }
 
-            int maxAge = passengers.Max(p => p.Age);
+            int maxAge = passengers[0].Age;
+            foreach (var passenger in passengers)
+            {
+                if (passenger.Age > maxAge)
+                {
+                    maxAge = passenger.Age;
+                }
+            }
+
             Console.WriteLine($"\nDen äldsta passageraren är {maxAge} år.");
         }
 
@@ -177,17 +166,26 @@ namespace Bussen
                 Console.Write("\nAnge maxålder: ");
                 if (int.TryParse(Console.ReadLine(), out int maxAge))
                 {
-                    var filtered = passengers.Where(p => p.Age >= minAge && p.Age <= maxAge).ToList();
-                    if (filtered.Count == 0)
+                    List<Passenger> filteredPassengers = new List<Passenger>();
+
+                    foreach (var passenger in passengers)
+                    {
+                        if (passenger.Age >= minAge && passenger.Age <= maxAge)
+                        {
+                            filteredPassengers.Add(passenger);
+                        }
+                    }
+
+                    if (filteredPassengers.Count == 0)
                     {
                         Console.WriteLine("\nInga passagerare i detta åldersintervall.");
                     }
                     else
                     {
                         Console.WriteLine("\n--- Passagerare inom åldersintervallet ---");
-                        foreach (var p in filtered)
+                        foreach (var p in filteredPassengers)
                         {
-                            p.DisplayInfo();
+                            Console.WriteLine($"Ålder: {p.Age}, Kön: {p.Gender}");
                         }
                     }
                 }
@@ -204,7 +202,19 @@ namespace Bussen
 
         public void SortPassengers()
         {
-            passengers.Sort((p1, p2) => p1.Age.CompareTo(p2.Age));
+            for (int i = 0; i < passengers.Count - 1; i++)
+            {
+                for (int j = 0; j < passengers.Count - i - 1; j++)
+                {
+                    if (passengers[j].Age > passengers[j + 1].Age)
+                    {
+                        var temp = passengers[j];
+                        passengers[j] = passengers[j + 1];
+                        passengers[j + 1] = temp;
+                    }
+                }
+            }
+
             Console.WriteLine("\nPassagerare sorterade efter ålder. Ange alternativ 2 för att visa passagerarlista.");
         }
 
@@ -213,7 +223,16 @@ namespace Bussen
             Console.Write("\nAnge åldern på passageraren du vill ta bort: ");
             if (int.TryParse(Console.ReadLine(), out int age))
             {
-                int removedCount = passengers.RemoveAll(p => p.Age == age);
+                int removedCount = 0;
+                for (int i = passengers.Count - 1; i >= 0; i--)
+                {
+                    if (passengers[i].Age == age)
+                    {
+                        passengers.RemoveAt(i);
+                        removedCount++;
+                    }
+                }
+
                 if (removedCount > 0)
                 {
                     Console.WriteLine($"\n{removedCount} passagerare med ålder {age} har tagits bort.");
@@ -226,6 +245,35 @@ namespace Bussen
             else
             {
                 Console.WriteLine("\nOgiltig inmatning.");
+            }
+        }
+
+        public void PrintPassengersByGender()
+        {
+            Console.Write("\nVisa passagerare med kön (M/K): ");
+            string gender = Console.ReadLine()?.Trim().ToUpper() ?? "";
+
+            List<Passenger> filteredPassengers = new List<Passenger>();
+
+            foreach (var passenger in passengers)
+            {
+                if (passenger.Gender == gender)
+                {
+                    filteredPassengers.Add(passenger);
+                }
+            }
+
+            if (filteredPassengers.Count == 0)
+            {
+                Console.WriteLine("\nInga passagerare av detta kön hittades.");
+            }
+            else
+            {
+                Console.WriteLine($"\n--- Passagerare med kön {gender} ---");
+                foreach (var p in filteredPassengers)
+                {
+                    Console.WriteLine($"Ålder: {p.Age}, Kön: {p.Gender}");
+                }
             }
         }
     }

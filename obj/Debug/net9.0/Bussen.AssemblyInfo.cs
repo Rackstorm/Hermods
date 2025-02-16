@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bussen")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1202341f3d8738761d91c2111aba196b2bb256c0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6dbd8670a80bd18c5134573bb94011f101277c18")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bussen")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bussen")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
